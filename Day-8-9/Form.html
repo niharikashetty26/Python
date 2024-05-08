@@ -4,52 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic HTML Page</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        header, footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-        }
-        main {
-            padding: 20px;
-        }
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        input[type="text"], input[type="password"], select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Niharika Shetty</h1>
-        <a href="mailto:niharikashetty94@gmail.com" style="color:white">Send Email</a>
+        <div class="header-logo">
+            <div>
+                <img src="Book.jpg" alt="Logo">
+            </div>
+            <div>
+                <h1 class="header-info">Book-Store</h1>
+                <h3 class="header-info">--One stop for all your book search</h3>
+            </div>
+        </div>
+        <div class="header-contact">
+            
+            <nav class="header-nav">
+                <a href="mailto:niharikashetty94@gmail.com"><i class="fas fa-envelope"></i> Send Email</a>
+                <a href="#"><i class="fas fa-gift"></i> Giveaways</a>
+                <a href="#"><i class="fas fa-tags"></i> Special Offers</a>
+
+
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </nav>
+        </div>
+        
     </header>
 
     <main>
-        <h1>Heading 1</h1>
-        <h2>Heading 2</h2>
-        <h3>Heading 3</h3>
-        <h4>Heading 4</h4>
-        <h5>Heading 5</h5>
-        <h6>Heading 6</h6>
-
-        <p>This is a paragraph.</p>
+        <h1>Welcome to our book-store website</h1>
+        <h2>I'll help you to get updates from our site!!!</h2>
+        <h3>Just drop a mail or fill the form to get the updates.</h3>
+        
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
             Asperiores excepturi, voluptatibus ipsum ab veritatis, 
             in eos commodi mollitia dignissimos voluptate vel pariatur 
@@ -88,10 +77,30 @@
 
             <input type="submit" value="Submit">
         </form>
+        <img src="Library2.png" style="width: 100%; height: 50%;" alt="Image description">
+        <!-- <div id="searchIcon">
+            <i class="fas fa-search"></i>
+        </div> -->
+
+        <div id="bookList">
+            <div>To Kill a Mockingbird</div>
+            <div>1984</div>
+            <div>The Great Gatsby</div>
+            <div>Brave New World</div>
+            <div>The Catcher in the Rye</div>
+            <div>The Lord of the Rings</div>
+            <div>The Hobbit</div>
+            <div>Pride and Prejudice</div>
+            <div>The Grapes of Wrath</div>
+            <div>Moby-Dick</div>
+        </div>
+
+       
     </main>
 
     <footer>
-        <a href="About.html" style="color: white;">About</a>
+        <a href="About.html">About</a>
+        <p>&copy; 2024 YourWebsiteName. All rights reserved.</p>
     </footer>
 </body>
 </html>
