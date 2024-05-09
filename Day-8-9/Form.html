@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic HTML Page</title>
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -35,7 +36,9 @@
     </header>
 
     <main>
+        <div  class="form-border">
         <h1>Welcome to our book-store website</h1>
+    </div>
         <h2>I'll help you to get updates from our site!!!</h2>
         <h3>Just drop a mail or fill the form to get the updates.</h3>
         
@@ -47,8 +50,8 @@
             Voluptatum reprehenderit earum corrupti quaerat ut, aperiam molestias ducimus 
             fugiat obcaecati eum vitae nulla. Perspiciatis quia commodi illum neque?
         </p>
-
-        <form action="Success.html" >
+       <div id="box-margin" style="text-align: center;">
+        <form action="Success.html"  class="form-border">
             <label for="username">Username*:</label>
             <input type="text" id="username" name="username" required>
 
@@ -77,6 +80,7 @@
 
             <input type="submit" value="Submit">
         </form>
+    </div>
         <img src="Library2.png" style="width: 100%; height: 50%;" alt="Image description">
         <!-- <div id="searchIcon">
             <i class="fas fa-search"></i>
@@ -94,13 +98,20 @@
             <div>The Grapes of Wrath</div>
             <div>Moby-Dick</div>
         </div>
-
+        <div class="suggestion-box">
+            
+            <h2>Send your suggesstions</h2>
+            <textarea placeholder="Enter your suggesstions" style="text-align: center;"></textarea>
+            <button>Submit</button>
+        </div>
+        <img src="Img1.jpg" style="width: 100%; height: auto;" alt="Image description">
+    
        
     </main>
 
     <footer>
         <a href="About.html">About</a>
-        <p>&copy; 2024 YourWebsiteName. All rights reserved.</p>
+        <p>&copy; 2024 bookstore@gmail.com All rights reserved.</p>
     </footer>
 </body>
 </html>
