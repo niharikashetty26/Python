@@ -11,6 +11,7 @@ body {
     background-size: cover;
     height: 100%;
     width: 100%;
+    /* overflow-x: hidden; */
 }
 
 header {
@@ -34,13 +35,7 @@ header {
      /* background-color:red; */
 }
 
-/* .header-logo div:first-child{
-    
-     width: 50%;
-     height: 30%;
-     background-color: gray;
 
-} */
 
 .header-logo div:first-child img{
       width: 100px;
@@ -214,55 +209,3 @@ h1, h2 {
     align-items: center;
     margin: 10px;
 }
-
-/* img {
-    width: 100%;
-    height: auto;
-} */
-
-/* Media Queries
-@media only screen and (max-width: 768px) {
-    header {
-        padding: 10px 20px;
-    }
-    
-    .header-logo {
-        width: 50%;
-    }
-    
-    .header-logo div:nth-child(2) {
-        margin-left: 20px;
-    }
-    
-    .header-nav a {
-        margin-right: 10px;
-    }
-    
-    #box-margin {
-        margin-left: 20px;
-        width: 80%;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    header {
-        padding: 10px;
-    }
-    
-    .header-logo {
-        width: 70%;
-    }
-    
-    .header-logo div:nth-child(2) {
-        margin-left: 10px;
-    }
-    
-    .header-nav a {
-        margin-right: 5px;
-    }
-    
-    #box-margin {
-        margin-left: 10px;
-        width: 90%;
-    }
-} */
