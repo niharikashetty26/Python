@@ -6,13 +6,13 @@ const name = "John";
 function greet(person) {
     return `${greeting} ${person}!`;
 }
-console.log(greet(name)); // Output: Hello, John!
+console.log(greet(name));
 
 // Arrays and array methods
 let numbers = [1, 2, 3, 4, 5];
-numbers.push(6); // Add an element to the end
-numbers.pop();   // Remove the last element
-numbers.forEach(num => console.log(num)); // Output: 1 2 3 4 5
+numbers.push(6);
+numbers.pop();
+numbers.forEach(num => console.log(num));
 
 // Objects and object methods
 let person = {
@@ -23,7 +23,7 @@ let person = {
         return `Hello, ${this.firstName} ${this.lastName}!`;
     }
 };
-console.log(person.greet()); // Output: Hello, John Doe!
+console.log(person.greet());
 
 // Conditional statements
 let x = 5;
@@ -37,12 +37,12 @@ if (x > 0) {
 
 // Loops
 for (let i = 0; i < 5; i++) {
-    console.log(i); // Output: 0 1 2 3 4
+    console.log(i);
 }
 
 // Arrow functions
 const multiply = (a, b) => a * b;
-console.log(multiply(2, 3)); // Output: 6
+console.log(multiply(2, 3));
 
 // Classes and objects
 class Car {
@@ -54,7 +54,7 @@ class Car {
     }
 }
 let myCar = new Car("Toyota");
-myCar.drive(); // Output: Driving Toyota
+myCar.drive();
 
 // Promises and asynchronous code
 function fetchData() {
@@ -64,11 +64,11 @@ function fetchData() {
         }, 2000);
     });
 }
-fetchData().then(data => console.log(data)); // Output: Data fetched successfully!
+fetchData().then(data => console.log(data));
 
 // Error handling
 try {
     throw new Error("Something went wrong!");
 } catch (error) {
-    console.log(error.message); // Output: Something went wrong!
+    console.log(error.message);
 }
