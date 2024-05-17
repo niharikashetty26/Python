@@ -28,14 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const firstName = document.getElementById('first_name').value;
-        if (!firstName) {
-            errorMessages.push('First Name is required.');
-            valid = false;
-        }
-
         const lastName = document.getElementById('last_name').value;
-        if (!lastName) {
-            errorMessages.push('Last Name is required.');
+        if (!firstName && !lastName) {
+            errorMessages.push('Either First Name or Last Name is required.');
             valid = false;
         }
 
