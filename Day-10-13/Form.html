@@ -1,120 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Basic HTML Page</title>
-    
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<body>
+
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
     <script src="validation.js"></script>
 
     <header>
-        <div class="header-logo">
-            <div>
-                <img src="Book.jpg" alt="Logo">
-            </div>
-            <div class="header-info">
-                <span>
-                    <h1>Book-Store</h1>
-                    <h3>--One stop for all your book search</h3>
-                </span>
-            </div>
+      <div class="header-logo">
+        <div>
+          <img src="Book.jpg" alt="Logo" />
         </div>
-        <div class="header-contact">
-            
-            <nav class="header-nav">
-                <a href="mailto:niharikashetty94@gmail.com"><i class="fas fa-envelope"></i> Send Email</a>
-                <a href="#"><i class="fas fa-gift"></i> Giveaways</a>
-                <a href="#"><i class="fas fa-tags"></i> Special Offers</a>
-
-
-                <div class="search-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-            </nav>
+        <div class="header-info">
+          <span>
+            <h1>Book-Store</h1>
+            <h3>--One stop for all your book search</h3>
+          </span>
         </div>
-        
+      </div>
+      <div class="header-contact">
+        <ul>
+          <li>
+            <a href="mailto:niharikashetty94@gmail.com"
+              ><i class="fas fa-envelope"></i> Send Email</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-gift"></i> Giveaways</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-tags"></i> Special Offers</a>
+          </li>
+          <li><i class="fas fa-search"></i></li>
+        </ul>
+      </div>
     </header>
 
     <main>
-        <div  class="form-border">
-        <h1>Welcome to our book-store website</h1>
-    </div>
-        <h2>I'll help you to get updates from our site!!!</h2>
-        <h3>Just drop a mail or fill the form to get the updates.</h3>
-        
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Asperiores excepturi, voluptatibus ipsum ab veritatis, 
-            in eos commodi mollitia dignissimos voluptate vel pariatur 
-            vero temporibus architecto earum autem! Recusandae, nulla doloremque.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, ducimus corporis. 
-            Voluptatum reprehenderit earum corrupti quaerat ut, aperiam molestias ducimus 
-            fugiat obcaecati eum vitae nulla. Perspiciatis quia commodi illum neque?
-        </p>
-       <div id="box-margin" style="text-align: center;">
-        <form action="Success.html"  class="form-border">
-            <label for="email">Email*:</label>
-            <input type="text" id="email" name="email" >
+      <h1 style="text-align: center">Welcome to our book-store website</h1>
 
-            <label for="password">Password*:</label>
-            <input type="password" id="password" name="password" >
+      <h2 style="text-align: center">
+        I'll help you to get updates from our site!!!
+      </h2>
+      <h3 style="text-align: center">
+        Just drop a mail or fill the form to get the updates.
+      </h3>
 
-            <label for="confirm_password">Confirm Password*:</label>
-            <input type="password" id="confirm_password" name="confirm_password" >
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
+        excepturi, voluptatibus ipsum ab veritatis, in eos commodi mollitia
+        dignissimos voluptate vel pariatur vero temporibus architecto earum
+        autem! Recusandae, nulla doloremque. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Magnam, ducimus corporis. Voluptatum
+        reprehenderit earum corrupti quaerat ut, aperiam molestias ducimus
+        fugiat obcaecati eum vitae nulla. Perspiciatis quia commodi illum neque?
+      </p>
+      <div id="box-margin" style="text-align: center">
+        <form action="Success.html" class="form-border">
+          <label for="email">Email*:</label>
+          <input type="text" id="email" name="email" />
 
-            <label for="first_name">First Name*:</label>
-            <input type="text" id="first_name" name="first_name" >
+          <label for="password">Password*:</label>
+          <input type="password" id="password" name="password" />
 
-            <label for="last_name">Last Name*:</label>
-            <input type="text" id="last_name" name="last_name" >
+          <label for="confirm_password">Confirm Password*:</label>
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+          />
 
-            <label for="dob">DOB*:</label>
-            <input type="date" id="dob" name="dob" >
+          <label for="first_name">First Name*:</label>
+          <input type="text" id="first_name" name="first_name" />
 
-            <label for="gender">Gender*:</label>
-            <select id="gender" name="gender" >
-                <option value="">Select</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
+          <label for="last_name">Last Name*:</label>
+          <input type="text" id="last_name" name="last_name" />
 
-            <input type="submit" value="Submit">
+          <label for="dob">DOB*:</label>
+          <input type="date" id="dob" name="dob" />
+
+          <label for="gender">Gender*:</label>
+          <select id="gender" name="gender">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+
+          <input type="submit" value="Submit" />
         </form>
-    </div>
-    <div class="container">
-        <img src="Library2.png" style="width: 100%; height: auto; overflow-x: hidden;" alt="Image description">
+      </div>
+      <div class="container">
+        <img
+          src="Library2.png"
+          style="width: 100%; height: auto; overflow-x: hidden"
+          alt="Image description"
+        />
         <div id="bookList">
-            <div>To Kill a Mockingbird</div>
-            <div>1984</div>
-            <div>The Great Gatsby</div>
-            <div>Brave New World</div>
-            <div>The Catcher in the Rye</div>
-            <div>The Lord of the Rings</div>
-            <div>The Hobbit</div>
-            <div>Pride and Prejudice</div>
-            <div>The Grapes of Wrath</div>
+          <div>To Kill a Mockingbird</div>
+          <div>1984</div>
+          <div>The Great Gatsby</div>
+          <div>Brave New World</div>
+          <div>The Catcher in the Rye</div>
+          <div>The Lord of the Rings</div>
+          <div>The Hobbit</div>
+          <div>Pride and Prejudice</div>
+          <div>The Grapes of Wrath</div>
         </div>
-    </div>
-        
-        <div class="suggestion-box">
-            
-            <h2>Send your suggesstions</h2>
-            <textarea placeholder="Enter your suggesstions" style="text-align: center;"></textarea>
-            <button>Submit</button>
-        </div>
-        <img src="Img1.jpg" style="width: 100%; height: auto; overflow-x: hidden;" alt="Image description">
-    
-        
+      </div>
+
+      <div class="suggestion-box">
+        <h2>Send your suggesstions</h2>
+        <textarea
+          placeholder="Enter your suggesstions"
+          style="text-align: center"
+        ></textarea>
+        <button>Submit</button>
+      </div>
+      <img
+        src="Img1.jpg"
+        style="width: 100%; height: auto; overflow-x: hidden"
+        alt="Image description"
+      />
     </main>
     <footer>
-        <a href="About.html">About</a>
-        <p>&copy; 2024 bookstore@gmail.com All rights reserved.</p>
-    </footer> 
-   
-</body>
-
+      <a href="About.html">About</a>
+      <p>&copy; 2024 bookstore@gmail.com All rights reserved.</p>
+    </footer>
+  </body>
 </html>
