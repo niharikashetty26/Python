@@ -9,13 +9,13 @@ print("b:", b)
 print("c:", c)
 print("d:", d)
 
-# Assignment Operators
+# Assignment-- Operators
 x = 5
 x += 3
 x -= 2
 x *= 4
 x /= 6
-print("\nAssignment Operators:")
+print("\nAssignment-- Operators:")
 print("x:", x)
 
 # Comparison Operators
