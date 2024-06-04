@@ -27,13 +27,6 @@ class ContactManager:
         else:
             print(f"Contact with name '{name}' not found.")
 
-    def search_contact(self, name):
-        if name in self.contacts:
-            contact = self.contacts[name]
-            print(f"Contact found: {name} - Phone: {contact['phone']}, Email: {contact['email']}")
-        else:
-            print(f"Contact with name '{name}' not found.")
-
     def list_contacts(self):
         if not self.contacts:
             print("No contacts available.")
