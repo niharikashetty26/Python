@@ -1,5 +1,6 @@
 def cache_decorator(func):
     cache = {}
+    print(cache)
     def wrapper(*args):
         if args in cache:
             print(f"Cache hit for args: {args}")
