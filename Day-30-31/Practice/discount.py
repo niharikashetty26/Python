@@ -11,6 +11,6 @@ def calculate_discount(price, discount):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-# Test cases
+
 calculate_discount(100, 20)
 calculate_discount(200, -150)

@@ -7,6 +7,7 @@ class InvalidRadiusError(Exception):
     def __str__(self):
         return f"Radius '{self.radius}' is invalid: {self.message}"
 
+
 def calculate_area(radius):
     try:
 
@@ -20,6 +21,7 @@ def calculate_area(radius):
         print(e)
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
+
 
 calculate_area(5)
 calculate_area(-5)

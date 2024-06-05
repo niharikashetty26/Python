@@ -34,7 +34,7 @@ def main():
 
     try:
         account.deposit(500)
-        account.withdraw(300)
+        account.withdraw(-1)
         account.withdraw(150)
         account.withdraw(300)
 
