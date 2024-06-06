@@ -2,25 +2,27 @@ Indentation:
 
 Use 4 spaces per indentation level.
 Continuation lines should align wrapped elements either vertically using Python's implicit line joining inside parentheses, brackets, and braces, or using a hanging indent.
-Maximum Line Length:
 
+Maximum Line Length:
 Limit all lines to a maximum of 79 characters.
 For lines containing comments or docstrings, limit to 72 characters.
-Blank Lines:
 
+Blank Lines:
 Surround top-level function and class definitions with two blank lines.
 Method definitions inside a class are surrounded by a single blank line.
-Imports:
 
+
+Imports:
 Imports should usually be on separate lines.
+
 Imports are grouped in the following order:
 Standard library imports.
 Related third-party imports.
 Local application/library-specific imports.
 Import statements should be placed at the top of the file, just after any module comments and docstrings, and before module globals and constants.
 Whitespace in Expressions and Statements
-Avoid extraneous whitespace:
 
+Avoid extraneous whitespace:
 Immediately inside parentheses, brackets, or braces.
 Between a trailing comma and a following close parenthesis.
 Immediately before a comma, semicolon, or colon.
@@ -47,27 +49,28 @@ Use triple double quotes for docstrings.
 All public modules, functions, classes, and methods should have docstrings.
 Docstrings should describe the method's effect as a command ("Do this", "Return that"), not as a description; e.g. don't say, "Returns the pathname ...".
 Naming Conventions
-Variable Names:
 
+
+Variable Names:
 Use snake_case for variable names.
 Avoid using names that are too short or not descriptive.
 Function Names:
 
 Function names should be lowercase, with words separated by underscores as necessary to improve readability.
-Class Names:
+
 
 Class names should normally use the CapWords convention.
-Constants:
+
 
 Constants should be written in all capital letters with underscores separating words.
 Programming Recommendations
-Comparisons:
 
+Comparisons:
 Use is and is not for comparing to None.
 Use == and != for comparing values.
+
 Boolean Values:
+Use the fact that empty sequences are false in boolean contexts. E.g., if not x: rather than if x == []
 
-Use the fact that empty sequences are false in boolean contexts. E.g., if not x: rather than if x == []:
 Exceptions:
-
 Use specific exceptions whenever possible, rather than a bare except: clause.
