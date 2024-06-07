@@ -1,0 +1,50 @@
+-- CREATE TABLE books (
+--     book_id SERIAL PRIMARY KEY,
+--     title VARCHAR(255) NOT NULL,
+--     author VARCHAR(100) NOT NULL,
+--     published_year INT,
+--     genre VARCHAR(100),
+--     pages INT,
+--     price DECIMAL(10, 2),
+--     in_stock BOOLEAN
+-- );
+-- INSERT INTO books (title, author, published_year, genre, pages, price, in_stock)
+-- VALUES
+-- ('To Kill a Mockingbird', 'Harper Lee', 1960, 'Fiction', 281, 12.99, true),
+-- ('1984', 'George Orwell', 1949, 'Dystopian', 328, 10.99, true),
+-- ('The Great Gatsby', 'F. Scott Fitzgerald', 1925, 'Classic', 180, 9.99, true),
+-- ('Pride and Prejudice', 'Jane Austen', 1813, 'Romance', 279, 8.49, false),
+-- ('The Catcher in the Rye', 'J.D. Salinger', 1951, 'Coming-of-age', 277, 11.49, true),
+-- ('To the Lighthouse', 'Virginia Woolf', 1927, 'Modernist', 209, 14.99, true),
+-- ('Moby-Dick', 'Herman Melville', 1851, 'Adventure', 585, 13.99, false),
+-- ('Brave New World', 'Aldous Huxley', 1932, 'Science Fiction', 288, 10.99, true),
+-- ('The Lord of the Rings', 'J.R.R. Tolkien', 1954, 'Fantasy', 1178, 20.99, true),
+-- ('The Chronicles of Narnia', 'C.S. Lewis', 1950, 'Fantasy', 767, 18.49, true),
+-- ('The Chronicles of Narnia-2', 'C.S. Lewis', 1954, 'Fantasy', 767, 18.49, true);
+-- OPERATIONS
+-- SELECT DISTINCT genre
+-- FROM books;
+-- SELECT *
+-- FROM books
+-- WHERE genre = 'Fantasy';
+-- SELECT *
+-- FROM books
+-- WHERE published_year > 1950;
+-- SELECT *
+-- FROM books
+-- ORDER BY published_year DESC;
+-- SELECT *
+-- FROM books
+-- WHERE published_year > 1950
+--     AND author = 'C.S. Lewis';
+-- SELECT *
+-- FROM books
+-- WHERE (published_year > 1950
+--     OR author = 'C.S. Lewis') AND pages>300;
+-- SELECT * FROM books WHERE NOT published_year = 1954
+-- SELECT * FROM books;
+-- UPDATE books
+-- SET title = 'Forty Rules of Love'
+-- WHERE published_year = 1954
+--     AND author = 'C.S. Lewis';
+-- SELECT * FROM books LIMIT 3;

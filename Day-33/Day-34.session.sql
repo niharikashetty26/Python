@@ -1,0 +1,61 @@
+-- CREATE TABLE employees (
+--     id SERIAL PRIMARY KEY,
+--     first_name VARCHAR(50) NOT NULL,
+--     last_name VARCHAR(50) NOT NULL,
+--     email VARCHAR(100) UNIQUE NOT NULL,
+--     phone_number VARCHAR(15),
+--     hire_date DATE NOT NULL,
+--     job_title VARCHAR(50),
+--     salary DECIMAL(10, 2),
+--     department VARCHAR(100)
+-- );
+-- INSERT INTO employees (first_name, last_name, email, phone_number, hire_date, job_title, salary, department)
+-- VALUES
+-- ('John', 'Doe', 'john.doe2@example.com', '555-1234', '2023-01-15', 'Software Engineer', 75000.00, 'Engineering'),
+-- ('Jane', 'Smith', 'jane.smith2@example.com', '555-5678', '2022-07-01', 'Project Manager', 85000.00, 'Management'),
+-- ('Mike', 'Johnson', 'mike.johnson2@example.com', '555-8765', '2021-11-23', 'Data Analyst', 65000.00, 'Data Science'),
+-- ('Emily', 'Davis', 'emily.davis2@example.com', '555-3456', '2020-03-10', 'HR Manager', 70000.00, 'Human Resources'),
+-- ('Daniel', 'Brown', 'daniel.brown2@example.com', '555-7890', '2019-12-01', 'Accountant', 62000.00, 'Finance'),
+-- ('Olivia', 'Wilson', 'olivia.wilson2@example.com', '555-6543', '2018-05-20', 'Marketing Specialist', 68000.00, 'Marketing'),
+-- ('Liam', 'Taylor', 'liam.taylor2@example.com', '555-4321', '2017-07-15', 'Sales Manager', 72000.00, 'Sales'),
+-- ('Sophia', 'Martinez', 'sophia.martinez2@example.com', '555-3210', '2021-09-05', 'Product Manager', 80000.00, 'Product'),
+-- ('James', 'Anderson', 'james.anderson2@example.com', '555-9876', '2022-11-11', 'Business Analyst', 69000.00, 'Business Analysis'),
+-- ('Isabella', 'Thomas', 'isabella.thomas2@example.com', '555-6789', '2023-02-28', 'Customer Support', 61000.00, 'Support');
+-- SELECT email
+-- FROM employees
+-- WHERE email IN (
+--         'john.doe@example.com',
+--         'jane.smith@example.com',
+--         'mike.johnson@example.com',
+--         'emily.davis@example.com',
+--         'daniel.brown@example.com',
+--         'olivia.wilson@example.com',
+--         'liam.taylor@example.com',
+--         'sophia.martinez@example.com',
+--         'james.anderson@example.com',
+--         'isabella.thomas@example.com'
+--     );
+-- INSERT INTO employees (
+--         first_name,
+--         last_name,
+--         email,
+--         phone_number,
+--         hire_date,
+--         job_title,
+--         salary,
+--         department
+--     )
+-- VALUES(
+--         'John',
+--         'Axi',
+--         'john.axi@example.com',
+--         '231-768',
+--         '2022-11-11',
+--         'Software Engineer',
+--         '40000',
+--         'Engineering'
+--     )
+SELECT *
+FROM employees;
+SELECT DISTINCT first_name
+FROM employees
