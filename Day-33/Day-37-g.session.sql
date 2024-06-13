@@ -10,6 +10,7 @@
 --     ('Alice Brown', 'Dr. Lee', 'Pediatrics'),
 --     ('Bob White', 'Dr. Miller', 'Orthopedics'),
 --     ('Carol Black', 'Dr. Davis', 'Oncology');
+-- FINDING Department as Oncology through Stored Procedures.
 CREATE OR REPLACE FUNCTION PatientsData(p_Department VARCHAR) RETURNS TABLE (
         PatientName VARCHAR,
         DoctorName VARCHAR,
