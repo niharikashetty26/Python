@@ -1,6 +1,6 @@
--- Scenario: The bookstore manager wants to view books of a specific genre and sort them 
+-- Scenario: The bookstore manager wants to view books of a specific genre and sort them
 -- by price.
--- Assignment: Write SQL queries to filter books by genre (e.g., "Mystery") and 
+-- Assignment: Write SQL queries to filter books by genre (e.g., "Mystery") and
 -- sort them by price in ascending order. Experiment with different genres and observe the results.
 SELECT *
 FROM Books;
