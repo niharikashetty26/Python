@@ -1,7 +1,7 @@
 # from connection import conn, record_exists, execute_and_print_query
-#
+
 # cur = None
-#
+
 # try:
 #     cur = conn.cursor()
 #     filter1 = '''
