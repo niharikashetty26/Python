@@ -1,0 +1,15 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "Day-45",
+      "database": "Bookstore",
+      "username": "postgres",
+      "password": "admin",
+      "connectionTimeout": 30
+    }
+  ]
+}
