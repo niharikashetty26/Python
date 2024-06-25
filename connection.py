@@ -33,18 +33,13 @@ def execute_and_print_query(cursor, query):
             print("No results found.")
             return
 
-        # Fetch column names from cursor description
         column_names = [desc[0] for desc in cursor.description]
-
-        # Determine maximum length for each column
         column_widths = [max(len(str(value)) for value in col) for col in zip(*results, column_names)]
 
-        # Print the headers
         header_format = " | ".join([f"{{:<{width}}}" for width in column_widths])
         print(header_format.format(*column_names))
         print("-+-".join(['-' * width for width in column_widths]))
 
-        # Print each row of results
         row_format = " | ".join([f"{{:<{width}}}" for width in column_widths])
         for row in results:
             print(row_format.format(*row))
