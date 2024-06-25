@@ -1,4 +1,8 @@
-# main.py
+
+# Scenario: The bookstore expands its inventory and now sells magazines. They want to track both books and magazines in their database.
+#
+# Assignment: Modify the database schema to include a new table called "Magazines" with columns for magazine ID, title, publisher, and price.
+# Use JOIN operations to retrieve data from both the "Books" and "Magazines" tables, displaying titles and prices for each.
 
 from connection import get_connection, execute_and_print_query, create_table, insert_data
 
@@ -38,7 +42,7 @@ def main():
         for data in magazines_data:
             insert_data("Magazines", ["magazineID", "title", "publisher", "price"], data)
 
-        retrieve_data_query =  """
+        retrieve_data_query = """
             SELECT 
                 b.bookID AS book_id,
                 b.title AS book_title,
@@ -53,6 +57,9 @@ def main():
                 Magazines m ON b.bookID = m.magazineID;
         """
         execute_and_print_query(cur, retrieve_data_query)
+
+
+
 
     except Exception as error:
         print(f"Error: {error}")
