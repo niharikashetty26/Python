@@ -1,12 +1,6 @@
-# Scenario: The bookstore expands its inventory and now sells magazines. They want to track
-# both books and magazines in their database.
+# main.py
 
-# Assignment: Modify the database schema to include a new table called "Magazines"
-# with columns for magazine ID, title, publisher, and price. Use JOIN operations to retrieve data from both the
-# "Books" and "Magazines" tables, displaying titles and prices for each.
-
-from connection import get_connection, execute_and_print_query
-
+from connection import get_connection, execute_and_print_query, create_table, insert_data
 
 def main():
     conn = None
@@ -15,38 +9,48 @@ def main():
         conn = get_connection()
         cur = conn.cursor()
 
-        drop_table="""DROP TABLE Magazines"""
-        cur.execute(drop_table)
+        # Drop and recreate Magazines table (if needed)
+        drop_table_query = """DROP TABLE IF EXISTS Magazines;"""
+        cur.execute(drop_table_query)
         conn.commit()
 
-        create_magazines_table_query = """
-        CREATE TABLE Magazines (
-            magazineID INT,
-            title VARCHAR(255),
-            publisher VARCHAR(255),
-            price INT
-        );
-        """
-        cur.execute(create_magazines_table_query)
-        conn.commit()
+        # Create Magazines table
+        columns = [
+            "magazineID INT",
+            "title VARCHAR(255)",
+            "publisher VARCHAR(255)",
+            "price INT"
+        ]
+        create_table("Magazines", columns)
 
-
-        insert_magazines_query = """
+        # Insert data into Magazines table
+        insert_data_query = """
         INSERT INTO Magazines (magazineID, title, publisher, price)
-        VALUES 
+        VALUES (%s, %s, %s, %s);
+        """
+        magazines_data = [
             (1, 'National Geographic', 'National Geographic Society', 5),
             (2, 'TIME', 'Time USA, LLC', 6),
             (3, 'The New Yorker', 'Condé Nast', 7),
             (4, 'Forbes', 'Forbes Media', 8),
-            (5, 'Vogue', 'Condé Nast', 9);
-        """
-        cur.execute(insert_magazines_query)
-        conn.commit()
+            (5, 'Vogue', 'Condé Nast', 9)
+        ]
+        for data in magazines_data:
+            insert_data("Magazines", ["magazineID", "title", "publisher", "price"], data)
 
-        retrieve_data_query = """
-        SELECT Books.title AS BookTitle, Books.price AS BookPrice, Magazines.title AS MagazineTitle, Magazines.price AS MagazinePrice
-        FROM Books
-        INNER JOIN Magazines ON Books.bookID = Magazines.magazineID;
+        retrieve_data_query =  """
+            SELECT 
+                b.bookID AS book_id,
+                b.title AS book_title,
+                b.price AS book_price,
+                m.magazineID AS magazine_id,
+                m.title AS magazine_title,
+                m.publisher AS magazine_publisher,
+                m.price AS magazine_price
+            FROM 
+                Books b
+            INNER JOIN 
+                Magazines m ON b.bookID = m.magazineID;
         """
         execute_and_print_query(cur, retrieve_data_query)
 
@@ -57,7 +61,6 @@ def main():
             cur.close()
         if conn is not None:
             conn.close()
-
 
 if __name__ == "__main__":
     main()

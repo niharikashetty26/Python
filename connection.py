@@ -1,5 +1,4 @@
 import psycopg2
-from psycopg2 import extras
 
 hostname = '127.0.0.1'
 database = 'Bookstore'
@@ -16,13 +15,28 @@ def get_connection():
         port=port_id
     )
 
-def json_record_exists(cursor, value, table_name, column_name):
-    cursor.execute(f'SELECT 1 FROM {table_name} WHERE {column_name} = %s', (extras.Json(value),))
-    return cursor.fetchone() is not None
+def create_table(table_name, columns):
+    conn = None
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
 
-def record_exists(cursor, id, table_name, table_id):
-    cursor.execute(f'SELECT 1 FROM {table_name} WHERE {table_id} = %s', (id,))
-    return cursor.fetchone() is not None
+
+        columns_str = ",\n".join(columns)
+        create_table_query = f"""
+            CREATE TABLE {table_name} (
+                {columns_str}
+            );
+        """
+
+        cursor.execute(create_table_query)
+        conn.commit()
+        print(f"Table '{table_name}' created successfully.")
+    except psycopg2.Error as e:
+        print(f"Error creating table '{table_name}': {e}")
+    finally:
+        if conn:
+            conn.close()
 
 def execute_and_print_query(cursor, query):
     try:
@@ -46,3 +60,27 @@ def execute_and_print_query(cursor, query):
         print()
     except Exception as e:
         print(f'Error: {e}')
+
+def insert_data(table_name, columns, values):
+    conn = None
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+
+        columns_str = ", ".join(columns)
+        placeholders = ", ".join(["%s"] * len(values))
+        insert_query = f"""
+            INSERT INTO {table_name} ({columns_str})
+            VALUES ({placeholders});
+        """
+
+        cursor.execute(insert_query, values)
+        conn.commit()
+
+    except psycopg2.Error as e:
+        print(f"Error inserting data into '{table_name}': {e}")
+    finally:
+        if conn:
+            conn.close()
+
