@@ -1,6 +1,5 @@
 
 # Scenario: The bookstore expands its inventory and now sells magazines. They want to track both books and magazines in their database.
-#
 # Assignment: Modify the database schema to include a new table called "Magazines" with columns for magazine ID, title, publisher, and price.
 # Use JOIN operations to retrieve data from both the "Books" and "Magazines" tables, displaying titles and prices for each.
 
