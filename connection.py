@@ -1,4 +1,5 @@
 import psycopg2
+from prettytable import PrettyTable
 
 hostname = '127.0.0.1'
 database = 'Bookstore'
@@ -15,7 +16,7 @@ def get_connection():
         port=port_id
     )
 
-def execute_and_commit(query, values=None):
+def execute_and_commit(query, values=None, fetch=False):
     conn = None
     try:
         conn = get_connection()
@@ -24,6 +25,9 @@ def execute_and_commit(query, values=None):
             cursor.execute(query, values)
         else:
             cursor.execute(query)
+        if fetch:
+            results = cursor.fetchall()
+            return results, cursor.description
         conn.commit()
     except psycopg2.Error as e:
         print(f"Error executing query: {e}")
@@ -32,49 +36,31 @@ def execute_and_commit(query, values=None):
             conn.close()
 
 def create_table(table_name, columns):
-    columns_str = ",\n".join(columns)
-    create_table_query = f"""
-        CREATE TABLE {table_name} (
-            {columns_str}
-        );
-    """
+    columns_str = ", ".join(columns)
+    create_table_query = f"CREATE TABLE {table_name} ({columns_str});"
     execute_and_commit(create_table_query)
     print(f"Table '{table_name}' created successfully.")
 
 def insert_data(table_name, columns, values):
     columns_str = ", ".join(columns)
     placeholders = ", ".join(["%s"] * len(values))
-    insert_query = f"""
-        INSERT INTO {table_name} ({columns_str})
-        VALUES ({placeholders});
-    """
+    insert_query = f"INSERT INTO {table_name} ({columns_str}) VALUES ({placeholders});"
     execute_and_commit(insert_query, values)
 
 def execute_and_print_query(query):
-    conn = None
     try:
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute(query)
-        results = cursor.fetchall()
-
+        results, description = execute_and_commit(query, fetch=True)
         if not results:
             print("No results found.")
             return
 
-        column_names = [desc[0] for desc in cursor.description]
-        column_widths = [max(len(str(value)) for value in col) for col in zip(*results, column_names)]
+        table = PrettyTable()
+        column_names = [desc[0] for desc in description]
+        table.field_names = column_names
 
-        header_format = " | ".join([f"{{:<{width}}}" for width in column_widths])
-        print(header_format.format(*column_names))
-        print("-+-".join(['-' * width for width in column_widths]))
-
-        row_format = " | ".join([f"{{:<{width}}}" for width in column_widths])
         for row in results:
-            print(row_format.format(*row))
-        print()
+            table.add_row(row)
+
+        print(table)
     except Exception as e:
         print(f'Error: {e}')
-    finally:
-        if conn:
-            conn.close()
