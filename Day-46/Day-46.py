@@ -12,12 +12,11 @@ def main():
         conn = get_connection()
         cur = conn.cursor()
 
-        # Drop and recreate Magazines table (if needed)
+
         drop_table_query = """DROP TABLE IF EXISTS Magazines;"""
         cur.execute(drop_table_query)
         conn.commit()
 
-        # Create Magazines table
         columns = [
             "magazineID INT",
             "title VARCHAR(255)",
@@ -26,7 +25,7 @@ def main():
         ]
         create_table("Magazines", columns)
 
-        # Insert data into Magazines table
+
         insert_data_query = """
         INSERT INTO Magazines (magazineID, title, publisher, price)
         VALUES (%s, %s, %s, %s);
