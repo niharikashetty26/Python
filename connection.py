@@ -15,31 +15,46 @@ def get_connection():
         port=port_id
     )
 
-def create_table(table_name, columns):
+def execute_and_commit(query, values=None):
     conn = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
-
-
-        columns_str = ",\n".join(columns)
-        create_table_query = f"""
-            CREATE TABLE {table_name} (
-                {columns_str}
-            );
-        """
-
-        cursor.execute(create_table_query)
+        if values:
+            cursor.execute(query, values)
+        else:
+            cursor.execute(query)
         conn.commit()
-        print(f"Table '{table_name}' created successfully.")
     except psycopg2.Error as e:
-        print(f"Error creating table '{table_name}': {e}")
+        print(f"Error executing query: {e}")
     finally:
         if conn:
             conn.close()
 
-def execute_and_print_query(cursor, query):
+def create_table(table_name, columns):
+    columns_str = ",\n".join(columns)
+    create_table_query = f"""
+        CREATE TABLE {table_name} (
+            {columns_str}
+        );
+    """
+    execute_and_commit(create_table_query)
+    print(f"Table '{table_name}' created successfully.")
+
+def insert_data(table_name, columns, values):
+    columns_str = ", ".join(columns)
+    placeholders = ", ".join(["%s"] * len(values))
+    insert_query = f"""
+        INSERT INTO {table_name} ({columns_str})
+        VALUES ({placeholders});
+    """
+    execute_and_commit(insert_query, values)
+
+def execute_and_print_query(query):
+    conn = None
     try:
+        conn = get_connection()
+        cursor = conn.cursor()
         cursor.execute(query)
         results = cursor.fetchall()
 
@@ -60,27 +75,6 @@ def execute_and_print_query(cursor, query):
         print()
     except Exception as e:
         print(f'Error: {e}')
-
-def insert_data(table_name, columns, values):
-    conn = None
-    try:
-        conn = get_connection()
-        cursor = conn.cursor()
-
-
-        columns_str = ", ".join(columns)
-        placeholders = ", ".join(["%s"] * len(values))
-        insert_query = f"""
-            INSERT INTO {table_name} ({columns_str})
-            VALUES ({placeholders});
-        """
-
-        cursor.execute(insert_query, values)
-        conn.commit()
-
-    except psycopg2.Error as e:
-        print(f"Error inserting data into '{table_name}': {e}")
     finally:
         if conn:
             conn.close()
-
