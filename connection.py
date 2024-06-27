@@ -16,11 +16,12 @@ def get_connection():
         port=port_id
     )
 
-def execute_and_commit(query, values=None, fetch=False):
-    conn = None
+def execute_and_commit(query, values=None, fetch=False, transactional=False):
+    # conn = None
+    conn = get_connection()
+    cursor = conn.cursor()
     try:
-        conn = get_connection()
-        cursor = conn.cursor()
+
         if values:
             cursor.execute(query, values)
         else:
@@ -31,6 +32,8 @@ def execute_and_commit(query, values=None, fetch=False):
         conn.commit()
     except psycopg2.Error as e:
         print(f"Error executing query: {e}")
+        if transactional:
+            conn.rollback()
     finally:
         if conn:
             conn.close()
