@@ -3,8 +3,9 @@
 -- Assignment: Create a SQL database called "Bookstore" with a table named "Books" containing columns for 
 -- book ID, title, author, genre, and price. Insert at least five sample records into the table.
 --  Write SQL queries to retrieve all data from the "Books" table.
+DROP TABLE Books;
 CREATE TABLE Books (
-    bookID INT,
+    bookID INT PRIMARY KEY,
     title VARCHAR(255),
     author VARCHAR(255),
     genre VARCHAR(100),
