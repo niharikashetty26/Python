@@ -2,33 +2,23 @@
 #
 # Assignment: Write SQL statements to update the prices of books in the database, based on specific criteria
 # (e.g., updating all books with a price greater than $20). Ensure to use transactions to maintain data consistency.
-from connection import execute_and_print_query,update_table
+
+from connection import execute_and_print_query, update_table
+
 
 def main():
-    # Print the Books table before the update
-    # print("Books table before price update:")
+    print("Books table before update:")
     execute_and_print_query("SELECT * FROM Books;")
 
-    # # Update the price of all books to a new price
-    # new_price = 30
-    # update_table("Books", "price", new_price, "update_all")
+    # Test Case 1: Update books where price>=20 update it with 30
+    update_table("Books", {"price": 30}, "price>=20")
 
-    # Update the price of one book based on criteria
-    update_table("Books", "price", 35, "update_one", "price=15")
+    # Test Case 2: Update books where genre is 'Classic' and price is greater than 15
+    update_table("Books", {"price": 25}, "genre = 'Classic'", "price > 15")
 
-    # # Upsert (insert or update)
-    # upsert_data = {
-    #     "bookID": 6,
-    #     "title": "New Book",
-    #     "author": "New Author",
-    #     "genre": "New Genre",
-    #     "price": 25
-    # }
-    # update_table("Books", "price", 25, "upsert", insert_data=upsert_data)
-    #
-    # # Print the Books table after the updates
     print("Books table after updates:")
     execute_and_print_query("SELECT * FROM Books;")
+
 
 if __name__ == "__main__":
     main()

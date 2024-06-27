@@ -40,13 +40,6 @@ VALUES (
         'J.D. Salinger',
         'Classic',
         18
-    ),
-    (
-        7,
-        'To Kill a Mockingbird',
-        'Harper Lee',
-        'Fiction',
-        15
     );
 SELECT *
 FROM Books;
