@@ -1,4 +1,3 @@
-#
 # Scenario: The bookstore wants to offer discounts on books published before a certain year.
 #
 # Assignment: Write a SQL query using a subquery or a derived table to identify books published
