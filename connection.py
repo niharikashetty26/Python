@@ -92,7 +92,7 @@ def update_table(table_name, updates, *conditions, transactional=False):
         if not updates:
             raise ValueError("No updates provided.")
 
-        select_query = f"SELECT COUNT(*) FROM {table_name}"
+        select_query = f"SELECT * FROM {table_name}"
         if conditions:
             where_clause = " AND ".join(conditions)
             select_query += f" WHERE {where_clause};"
