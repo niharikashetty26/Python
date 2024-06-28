@@ -92,7 +92,6 @@ def update_table(table_name, updates, *conditions, transactional=False):
         if not updates:
             raise ValueError("No updates provided.")
 
-        # Check if there are any rows matching the conditions
         select_query = f"SELECT COUNT(*) FROM {table_name}"
         if conditions:
             where_clause = " AND ".join(conditions)
@@ -123,3 +122,27 @@ def update_table(table_name, updates, *conditions, transactional=False):
         print(f"Error updating table '{table_name}': {e}")
     except Exception as e:
         print(f"Unexpected error updating table '{table_name}': {e}")
+
+
+def add_column_with_data(table_name, column_name, data_type, data=None, calculate_discount=None):
+    try:
+
+        add_column_query = f"ALTER TABLE {table_name} ADD COLUMN {column_name} {data_type};"
+        execute_and_commit(add_column_query)
+
+        if data:
+            for condition, value in data.items():
+                update_query = f"UPDATE {table_name} SET {column_name} = {value} WHERE {condition};"
+                execute_and_commit(update_query)
+
+        if calculate_discount:
+            for condition, expression in calculate_discount.items():
+                update_query = f"UPDATE {table_name} SET {column_name} = {expression} WHERE {condition};"
+                execute_and_commit(update_query)
+
+        execute_and_print_query(f"SELECT * FROM {table_name};")
+
+        print(f"Update operation on table '{table_name}' completed successfully.")
+
+    except Exception as e:
+        print(f"Error adding column '{column_name}': {e}")
