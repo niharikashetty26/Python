@@ -146,3 +146,4 @@ def add_column_with_data(table_name, column_name, data_type, data=None, calculat
 
     except Exception as e:
         print(f"Error adding column '{column_name}': {e}")
+
