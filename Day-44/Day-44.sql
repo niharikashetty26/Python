@@ -1,15 +1,16 @@
--- Scenario: A small bookstore wants to keep track of its inventory. 
--- They need a way to store information about books, including titles, authors, genres, and prices.
--- Assignment: Create a SQL database called "Bookstore" with a table named "Books" containing columns for 
--- book ID, title, author, genre, and price. Insert at least five sample records into the table.
---  Write SQL queries to retrieve all data from the "Books" table.
+-- -- -- Scenario: A small bookstore wants to keep track of its inventory. 
+-- -- -- They need a way to store information about books, including titles, authors, genres, and prices.
+-- -- -- Assignment: Create a SQL database called "Bookstore" with a table named "Books" containing columns for 
+-- -- -- book ID, title, author, genre, and price. Insert at least five sample records into the table.
+-- -- --  Write SQL queries to retrieve all data from the "Books" table.
+-- DROP TABLE Books;
 DROP TABLE Books;
 CREATE TABLE Books (
     bookID INT PRIMARY KEY,
     title VARCHAR(255),
     author VARCHAR(255),
     genre VARCHAR(100),
-    price INT
+    price INT quantity INT
 );
 INSERT INTO Books (bookID, title, author, genre, price)
 VALUES (
@@ -17,7 +18,8 @@ VALUES (
         'To Kill a Mockingbird',
         'Harper Lee',
         'Fiction',
-        15
+        15,
+        4
     ),
     (2, '1984', 'George Orwell', 'Dystopian', 20),
     (
@@ -25,21 +27,24 @@ VALUES (
         'Pride and Prejudice',
         'Jane Austen',
         'Romance',
-        10
+        10,
+        3
     ),
     (
         4,
         'The Great Gatsby',
         'F. Scott Fitzgerald',
         'Classic',
-        12
+        12,
+        2
     ),
     (
         5,
         'The Catcher in the Rye',
         'J.D. Salinger',
         'Classic',
-        18
+        18,
+        1
     );
 SELECT *
 FROM Books;

@@ -69,7 +69,7 @@ def execute_and_print_query(query):
         results, description = execute_and_commit(query, fetch=True)
         if not results:
             print("No results found.")
-            return
+            return []
 
         table = PrettyTable()
         column_names = [desc[0] for desc in description]
@@ -79,9 +79,11 @@ def execute_and_print_query(query):
             table.add_row(row)
 
         print(table)
+        return results  # Return results for further processing
+
     except Exception as e:
         print(f'Error: {e}')
-
+        return []
 
 class NoRowsUpdatedError(Exception):
     pass
