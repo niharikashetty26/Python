@@ -1,11 +1,34 @@
-import psycopg2
 from prettytable import PrettyTable
+from pathlib import Path
+from dotenv import load_dotenv
+import os
+import psycopg2
 
-hostname = '127.0.0.1'
-database = 'Bookstore'
-user_name = 'postgres'
-pwd = 'admin'
-port_id = 5432
+# load_dotenv('../.env')
+# dotenv_path = Path('.env')
+load_dotenv()
+
+hostname = os.getenv('HOSTNAME')
+database = os.getenv('DATABASE')
+user_name = os.getenv('USER_NAME')
+password = os.getenv('PASSWORD')
+port_id = os.getenv('PORT_ID')
+
+print(hostname)
+print(database)
+print(user_name)
+print(password)
+print(port_id)
+
+conn = psycopg2.connect(
+    host=hostname,
+    database=database,
+    user=user_name,
+    password=password,
+    port=port_id
+)
+
+print("Connected to database successfully!")
 
 
 def get_connection():
@@ -13,9 +36,13 @@ def get_connection():
         host=hostname,
         dbname=database,
         user=user_name,
-        password=pwd,
+        password=password,
         port=port_id
     )
+
+
+admin_username = "admin"
+admin_password = "admin123"
 
 
 def execute_and_commit(query, values=None, fetch=False, transactional=False):
@@ -79,11 +106,12 @@ def execute_and_print_query(query):
             table.add_row(row)
 
         print(table)
-        return results  # Return results for further processing
+        return results
 
     except Exception as e:
         print(f'Error: {e}')
         return []
+
 
 class NoRowsUpdatedError(Exception):
     pass
@@ -126,9 +154,23 @@ def update_table(table_name, updates, *conditions, transactional=False):
         print(f"Unexpected error updating table '{table_name}': {e}")
 
 
+def upsert_data(table_name, columns, values, conflict_column):
+    columns_str = ", ".join(columns)
+    placeholders = ", ".join(["%s"] * len(values))
+    conflict_update_columns = ", ".join(
+        [f"{column} = EXCLUDED.{column}" for column in columns if column != conflict_column])
+    upsert_query = f"""
+        INSERT INTO {table_name} ({columns_str})
+        VALUES ({placeholders})
+        ON CONFLICT ({conflict_column})
+        DO UPDATE SET {conflict_update_columns};
+    """
+    execute_and_commit(upsert_query, values, transactional=True)
+    print(f"Upsert operation on table '{table_name}' completed successfully.")
+
+
 def add_column_with_data(table_name, column_name, data_type, data=None, calculate_discount=None):
     try:
-
         add_column_query = f"ALTER TABLE {table_name} ADD COLUMN {column_name} {data_type};"
         execute_and_commit(add_column_query)
 
@@ -143,9 +185,7 @@ def add_column_with_data(table_name, column_name, data_type, data=None, calculat
                 execute_and_commit(update_query)
 
         execute_and_print_query(f"SELECT * FROM {table_name};")
-
         print(f"Update operation on table '{table_name}' completed successfully.")
 
     except Exception as e:
         print(f"Error adding column '{column_name}': {e}")
-
