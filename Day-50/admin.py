@@ -58,11 +58,25 @@ def view_customers():
         print(f"Error viewing customers: {e}")
 
 
-def view_orders():
+def view_customer_purchases():
     try:
-        execute_and_print_query("SELECT * FROM Orders;")
+        query = """
+        SELECT 
+            o.customer_id, 
+            c.name AS customer_name, 
+            SUM(o.total) AS total_spent
+        FROM 
+            Orders o
+        JOIN 
+            Customers c ON o.customer_id = c.customer_id
+        GROUP BY 
+            o.customer_id, c.name
+        ORDER BY 
+            o.customer_id;
+        """
+        execute_and_print_query(query)
     except Exception as e:
-        print(f"Error viewing orders: {e}")
+        print(f"Error viewing customer purchases: {e}")
 
 
 def admin_menu():
@@ -92,8 +106,10 @@ def admin_menu():
             elif choice == 5:
                 view_customers()
             elif choice == 6:
-                view_orders()
+                view_customer_purchases()
+
             elif choice == 7:
+
                 print("Exiting admin menu...")
                 break
             else:
