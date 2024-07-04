@@ -3,6 +3,16 @@ from connection import create_table, insert_data
 
 def main():
     try:
+        create_table("Books", [
+            "bookID SERIAL PRIMARY KEY",
+            "title VARCHAR(255) NOT NULL",
+            "author VARCHAR(255) NOT NULL",
+            "genre VARCHAR(100) NOT NULL",
+            "price DECIMAL(10, 2) NOT NULL",
+            "quantity INT NOT NULL"
+        ])
+        print("Table 'Books' created successfully.")
+
         create_table("Customers", [
             "customer_id SERIAL PRIMARY KEY",
             "name VARCHAR(255) NOT NULL",
@@ -20,19 +30,6 @@ def main():
             "quantity INT[]"
         ])
         print("Table 'Orders' created successfully.")
-
-        create_table("Books", [
-            "bookID SERIAL PRIMARY KEY",
-            "title VARCHAR(255) NOT NULL",
-            "author VARCHAR(255) NOT NULL",
-            "genre VARCHAR(100) NOT NULL",
-            "price DECIMAL(10, 2) NOT NULL",
-            "quantity INT NOT NULL"
-        ])
-        print("Table 'Books' created successfully.")
-
-
-
 
     except Exception as e:
         print(f"Error creating table: {e}")

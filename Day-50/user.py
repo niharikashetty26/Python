@@ -64,53 +64,11 @@ def calculate_total_price(customer_id):
         return 0.0
 
 
-# def add_book(customer_id):
-#     try:
-#         book_id = int(input("Enter Book ID: "))
-#         quantity_to_order = int(input("Enter Quantity: "))
-#
-#         # Check if the book with the given ID exists
-#         check_query = f"SELECT * FROM Books WHERE bookID = {book_id};"
-#         result, _ = execute_and_commit(check_query, fetch=True)
-#
-#         if result:
-#             current_quantity = result[0][5]
-#
-#             if quantity_to_order > current_quantity:
-#                 print(f"Not enough stock. Available quantity: {current_quantity}")
-#                 return
-#
-#             # Update the Books table to reflect the new quantity
-#             new_quantity = current_quantity - quantity_to_order
-#             update_query = f"UPDATE Books SET quantity = %s WHERE bookID = %s;"
-#             execute_and_commit(update_query, (new_quantity, book_id), transactional=True)
-#
-#             # Add the book to the order
-#             order_query = f"INSERT INTO Orders (customer_id, order_date, total, books, quantity) " \
-#                           f"VALUES (%s, '2023-07-01', 0.00, %s, %s);"
-#             execute_and_commit(order_query, (customer_id, [book_id], [quantity_to_order]), transactional=True)
-#
-#
-#
-#
-#             print("Book added to order and quantity updated successfully.")
-#             print(f"New quantity of book ID {book_id}: {new_quantity}")
-#
-#         else:
-#             print(f"Book with ID {book_id} does not exist.")
-#
-#     except ValueError:
-#         print("Invalid input. Please enter numeric value for Book ID and Quantity.")
-#     except Exception as e:
-#         print(f"Error adding book: {e}")
-
-
 def add_book(customer_id):
     try:
         book_id = int(input("Enter Book ID: "))
         quantity_to_order = int(input("Enter Quantity: "))
 
-        # Check if the book with the given ID exists
         check_query = f"SELECT * FROM Books WHERE bookID = {book_id};"
         result, _ = execute_and_commit(check_query, fetch=True)
 
@@ -120,17 +78,13 @@ def add_book(customer_id):
             if quantity_to_order > current_quantity:
                 print(f"Not enough stock. Available quantity: {current_quantity}")
                 return
-
-            # Calculate total price for the order
             price = result[0][4]
             total_price = price * quantity_to_order
 
-            # Update the Books table to reflect the new quantity
             new_quantity = current_quantity - quantity_to_order
             update_query = f"UPDATE Books SET quantity = %s WHERE bookID = %s;"
             execute_and_commit(update_query, (new_quantity, book_id), transactional=True)
 
-            # Add the book to the order and store total price in Orders table
             order_query = """
             INSERT INTO Orders (customer_id, order_date, total, books, quantity) 
             VALUES (%s, '2023-07-01', %s, %s, %s);
@@ -154,8 +108,6 @@ def delete_book(customer_id):
     try:
         book_id = int(input("Enter Book ID to delete: "))
         quantity_to_delete = int(input("Enter Quantity to delete: "))
-
-        # Check if the book exists in the customer's orders
         check_order_query = """
         SELECT order_id, books, quantity 
         FROM Orders 
@@ -217,40 +169,6 @@ def search_book():
         print(f"Error searching book: {e}")
 
 
-# def view_orders(customer_id):
-#     try:
-#         order_query = """
-#         SELECT order_id, order_date, books, quantity
-#         FROM Orders
-#         WHERE customer_id = %s;
-#         """
-#         orders, _ = execute_and_commit(order_query, (customer_id,), fetch=True)
-#
-#         if orders:
-#             print("Orders:")
-#             total_sum = 0
-#             for order in orders:
-#                 order_id, order_date, books, quantities = order
-#                 print(f"Order ID: {order_id}, Order Date: {order_date}")
-#
-#                 if books and quantities:
-#                     for book_id, quantity in zip(books, quantities):
-#                         book_query = f"SELECT title, price FROM Books WHERE bookID = %s;"
-#                         book_result, _ = execute_and_commit(book_query, (int(book_id),), fetch=True)
-#                         if book_result:
-#                             title, price = book_result[0]
-#                             total_sum += price * quantity
-#                             print(f" - {title} (Book ID: {book_id}), Quantity: {quantity}, Price: {price * quantity}")
-#                 else:
-#                     print("No books in this order.")
-#
-#             print(f"Total Price: {total_sum}")
-#
-#         else:
-#             print("No orders found for this customer.")
-#
-#     except Exception as e:
-#         print(f"Error viewing orders: {e}")
 def view_orders(customer_id):
     try:
         order_query = """

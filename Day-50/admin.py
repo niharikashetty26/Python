@@ -3,36 +3,66 @@ from connection import insert_data, execute_and_commit, execute_and_print_query
 
 def add_book():
     try:
-        title = input("Enter book title: ")
-        author = input("Enter author name: ")
-        genre = input("Enter genre: ")
-        price = float(input("Enter price: "))
-        quantity = int(input("Enter quantity: "))
+        num_books = int(input("Enter number of books to add: "))
+        books_data = []
 
-        book_data = (title, author, genre, price, quantity)
-        insert_data("Books", ["title", "author", "genre", "price", "quantity"], book_data)
+        for _ in range(num_books):
+            title = input("Enter book title: ")
+            author = input("Enter author name: ")
+            genre = input("Enter genre: ")
+            price = float(input("Enter price: "))
+            quantity = int(input("Enter quantity: "))
 
-        print("Book added successfully.")
+            book_data = (title, author, genre, price, quantity)
+            books_data.append(book_data)
 
+        insert_data("Books", ["title", "author", "genre", "price", "quantity"], books_data)
+
+    except ValueError:
+        print("Invalid input. Please enter numeric values for price and quantity.")
     except Exception as e:
-        print(f"Error adding book: {e}")
+        print(f"Error adding books: {e}")
 
 
 def update_book():
     try:
         book_id = int(input("Enter book ID to update: "))
-        column = input("Enter the column to update (title, author, genre, price, quantity): ")
-        new_value = input(f"Enter the new value for {column}: ")
 
-        if column in ["price", "quantity"]:
-            new_value = float(new_value) if column == "price" else int(new_value)
+        updates = {}
+        while True:
+            column = input("What do you want to update- title, author, genre, price, quantity - done? ")
+            if column.lower() == 'done':
+                break
 
-        update_query = f"UPDATE Books SET {column} = %s WHERE bookID = %s;"
-        execute_and_commit(update_query, (new_value, book_id), transactional=True)
+            if column not in ["title", "author", "genre", "price", "quantity"]:
+                print("Invalid column name. Please enter a valid column name.")
+                continue
+
+            new_value = input(f"Enter the new value for {column}: ")
+
+            if column == "price":
+                new_value = float(new_value)
+            elif column == "quantity":
+                new_value = int(new_value)
+
+            updates[column] = new_value
+
+        if not updates:
+            print("No updates were provided.")
+            return
+
+        set_clause = ", ".join([f"{col} = %s" for col in updates.keys()])
+        values = list(updates.values())
+        values.append(book_id)
+
+        update_query = f"UPDATE Books SET {set_clause} WHERE bookID = %s;"
+        execute_and_commit(update_query, values, transactional=True)
         print("Book updated successfully.")
+
+    except ValueError:
+        print("Invalid input. Please enter numeric values for price and quantity where applicable.")
     except Exception as e:
         print(f"Error updating book: {e}")
-
 
 def delete_book():
     try:

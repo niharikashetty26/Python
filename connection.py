@@ -85,11 +85,18 @@ def create_table(table_name, columns):
 
 
 def insert_data(table_name, columns, values):
-    columns_str = ", ".join(columns)
-    placeholders = ", ".join(["%s"] * len(values))
-    insert_query = f"INSERT INTO {table_name} ({columns_str}) VALUES ({placeholders});"
-    execute_and_commit(insert_query, values)
+    try:
+        columns_str = ", ".join(columns)
+        placeholders = ", ".join(["%s"] * len(columns))
+        insert_query = f"INSERT INTO {table_name} ({columns_str}) VALUES ({placeholders});"
 
+        for value_set in values:
+            execute_and_commit(insert_query, value_set, transactional=True)
+
+        print(f"{len(values)} record(s) inserted successfully into '{table_name}'.")
+
+    except Exception as e:
+        print(f"Error inserting data into '{table_name}': {e}")
 
 def execute_and_print_query(query):
     try:
