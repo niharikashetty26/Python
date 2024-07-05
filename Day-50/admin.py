@@ -2,67 +2,133 @@ from connection import insert_data, execute_and_commit, execute_and_print_query
 
 
 def add_book():
-    try:
-        num_books = int(input("Enter number of books to add: "))
-        books_data = []
+    while True:
+        try:
+            num_books = int(input("Enter number of books to add: "))
 
-        for _ in range(num_books):
-            title = input("Enter book title: ")
-            author = input("Enter author name: ")
-            genre = input("Enter genre: ")
-            price = float(input("Enter price: "))
-            quantity = int(input("Enter quantity: "))
+            books_data = []
+            errors = []
+            print("Enter book details separated by commas for each column and pipes for each book.")
+            print("Example: title, author, genre, price, quantity | title2, author2, genre2, price2, quantity2")
 
-            book_data = (title, author, genre, price, quantity)
-            books_data.append(book_data)
+            books_input = input("Books data: ")
+            book_entries = books_input.split("|")
+            for entry in book_entries:
+                book_details = entry.split(",")
 
-        insert_data("Books", ["title", "author", "genre", "price", "quantity"], books_data)
+                entry_errors = []
+                if len(book_details) != 5:
+                    entry_errors.append(
+                        f"Error: Each book must have 5 values (title, author, genre, price, quantity). Skipping entry: {entry.strip()}")
 
-    except ValueError:
-        print("Invalid input. Please enter numeric values for price and quantity.")
-    except Exception as e:
-        print(f"Error adding books: {e}")
+                title = book_details[0].strip() if len(book_details) > 0 else ""
+                author = book_details[1].strip() if len(book_details) > 1 else ""
+                genre = book_details[2].strip() if len(book_details) > 2 else ""
+                price = book_details[3].strip() if len(book_details) > 3 else ""
+                quantity = book_details[4].strip() if len(book_details) > 4 else ""
 
+                if not title:
+                    entry_errors.append(f"Error: Title is compulsory. Invalid entry: {entry.strip()}")
+                if not price:
+                    entry_errors.append(f"Error: Price is compulsory. Invalid entry: {entry.strip()}")
+                if not quantity:
+                    entry_errors.append(f"Error: Quantity is compulsory. Invalid entry: {entry.strip()}")
 
-def update_book():
-    try:
-        book_id = int(input("Enter book ID to update: "))
+                if price and quantity:
+                    try:
+                        price = float(price)
+                        quantity = int(quantity)
+                    except ValueError:
+                        entry_errors.append(
+                            f"Error: Invalid input for entry: {entry.strip()}. Ensure price and quantity are numeric.")
 
-        updates = {}
-        while True:
-            column = input("What do you want to update- title, author, genre, price, quantity - done? ")
-            if column.lower() == 'done':
-                break
+                if entry_errors:
+                    errors.extend(entry_errors)
+                else:
+                    book_data = (title, author, genre, price, quantity)
+                    books_data.append(book_data)
 
-            if column not in ["title", "author", "genre", "price", "quantity"]:
-                print("Invalid column name. Please enter a valid column name.")
+            if books_data:
+                insert_data("Books", ["title", "author", "genre", "price", "quantity"], books_data)
+                print(f"{len(books_data)} book(s) added successfully.")
+
+            if errors:
+                print("Errors encountered:")
+                for error in errors:
+                    print(error)
+
+            if not books_data:
+                print("No valid book entries provided. Please re-enter the data.")
                 continue
 
-            new_value = input(f"Enter the new value for {column}: ")
+            break
 
-            if column == "price":
-                new_value = float(new_value)
-            elif column == "quantity":
-                new_value = int(new_value)
+        except ValueError:
+            print("Invalid input. Please enter a numeric value for the number of books.")
+        except Exception as e:
+            print(f"Error adding books: {e}")
+def update_books():
+    try:
+        book_ids = input("Enter book IDs to update (comma-separated): ").split(',')
+        book_ids = [int(book_id.strip()) for book_id in book_ids if book_id.strip().isdigit()]
 
-            updates[column] = new_value
-
-        if not updates:
-            print("No updates were provided.")
+        if not book_ids:
+            print("No valid book IDs provided.")
             return
 
-        set_clause = ", ".join([f"{col} = %s" for col in updates.keys()])
-        values = list(updates.values())
-        values.append(book_id)
+        current_values_query = f"""
+        SELECT bookID, title, author, genre, price, quantity 
+        FROM Books 
+        WHERE bookID IN ({','.join(['%s'] * len(book_ids))});
+        """
+        current_values, _ = execute_and_commit(current_values_query, book_ids, fetch=True)
 
-        update_query = f"UPDATE Books SET {set_clause} WHERE bookID = %s;"
-        execute_and_commit(update_query, values, transactional=True)
-        print("Book updated successfully.")
+        if not current_values:
+            print("No books found with the provided IDs.")
+            return
+
+        books_dict = {}
+        columns = ["title", "author", "genre", "price", "quantity"]
+        for book in current_values:
+            book_id = book[0]
+            book_info = {col: val for col, val in zip(columns, book[1:])}
+            book_info["price"] = float(book_info["price"])
+            books_dict[book_id] = book_info
+            print(f"Current values for book ID {book_id}: {book_info}")
+
+        print("\nEnter new values in the same order, separated by commas (leave empty to keep current value):")
+
+        for book_id in books_dict.keys():
+            new_values = input(f"New values for book ID {book_id} (title, author, genre, price, quantity): ").split(',')
+
+            if len(new_values) != len(columns):
+                print("Error: Please provide values for all columns, even if they are empty to retain current values.")
+                return
+
+            for i, value in enumerate(new_values):
+                if value.strip() != "":
+                    if columns[i] == "price":
+                        books_dict[book_id][columns[i]] = float(value.strip())
+                    elif columns[i] == "quantity":
+                        books_dict[book_id][columns[i]] = int(value.strip())
+                    else:
+                        books_dict[book_id][columns[i]] = value.strip()
+
+        for book_id, update_values in books_dict.items():
+            set_clause = ", ".join([f"{col} = %s" for col in update_values.keys()])
+            values = list(update_values.values())
+            values.append(book_id)
+
+            update_query = f"UPDATE Books SET {set_clause} WHERE bookID = %s;"
+            execute_and_commit(update_query, values, transactional=True)
+
+        print("Books updated successfully.")
 
     except ValueError:
         print("Invalid input. Please enter numeric values for price and quantity where applicable.")
     except Exception as e:
-        print(f"Error updating book: {e}")
+        print(f"Error updating books: {e}")
+
 
 def delete_book():
     try:
@@ -76,7 +142,7 @@ def delete_book():
 
 def view_books():
     try:
-        execute_and_print_query("SELECT * FROM Books;")
+        execute_and_print_query("SELECT * FROM Books ORDER BY bookid;")
     except Exception as e:
         print(f"Error viewing books: {e}")
 
@@ -128,7 +194,7 @@ def admin_menu():
                 add_book()
 
             elif choice == 2:
-                update_book()
+                update_books()
             elif choice == 3:
                 delete_book()
             elif choice == 4:

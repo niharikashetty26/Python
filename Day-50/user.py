@@ -201,14 +201,14 @@ def view_orders(customer_id):
         print(f"Error viewing orders: {e}")
 
 
-# def view_customers():
-#     try:
-#         view_customer_query = "SELECT * FROM Customers;"
-#         customers = execute_and_print_query(view_customer_query)
-#         if not customers:
-#             print("No customers found.")
-#     except Exception as e:
-#         print(f"Error viewing customers: {e}")
+def view_customers():
+    try:
+        view_customer_query = "SELECT * FROM Customers;"
+        customers = execute_and_print_query(view_customer_query)
+        if not customers:
+            print("No customers found.")
+    except Exception as e:
+        print(f"Error viewing customers: {e}")
 
 
 def view_books():
@@ -231,7 +231,7 @@ def switch_case(choice, customer_id):
             search_book()
 
         elif choice == 4:
-            view_customers()
+            view_orders(customer_id)
         elif choice == 5:
             view_books()
         elif choice == 6:
