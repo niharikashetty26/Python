@@ -201,14 +201,14 @@ def view_orders(customer_id):
         print(f"Error viewing orders: {e}")
 
 
-def view_customers():
-    try:
-        view_customer_query = "SELECT * FROM Customers;"
-        customers = execute_and_print_query(view_customer_query)
-        if not customers:
-            print("No customers found.")
-    except Exception as e:
-        print(f"Error viewing customers: {e}")
+# def view_customers():
+#     try:
+#         view_customer_query = "SELECT * FROM Customers;"
+#         customers = execute_and_print_query(view_customer_query)
+#         if not customers:
+#             print("No customers found.")
+#     except Exception as e:
+#         print(f"Error viewing customers: {e}")
 
 
 def view_books():
@@ -229,13 +229,12 @@ def switch_case(choice, customer_id):
             delete_book(customer_id)
         elif choice == 3:
             search_book()
+
         elif choice == 4:
-            view_orders(customer_id)
-        elif choice == 5:
             view_customers()
-        elif choice == 6:
+        elif choice == 5:
             view_books()
-        elif choice == 7:
+        elif choice == 6:
             print("Exiting program...")
         else:
             print("Invalid choice. Please enter a valid option.")
@@ -254,13 +253,12 @@ def user_menu():
             print("2. Delete Book")
             print("3. Search Book")
             print("4. View Orders")
-            print("5. View Customers")
-            print("6. View Books")
-            print("7. Exit")
+            print("5. View Books")
+            print("6. Exit")
 
             try:
                 choice = int(input("\nEnter your choice: "))
-                if choice == 7:
+                if choice == 6:
                     print("Exiting program...")
                     break
                 switch_case(choice, customer_id)
