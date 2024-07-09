@@ -45,11 +45,8 @@ def insert_books():
             ('The Catcher in the Rye', 'J.D. Salinger', 'Classic', 18.00, 1)
         ]
 
-        for book in books:
-            insert_data("Books", ["title", "author", "genre", "price", "quantity"], book)
-
+        insert_data("Books", ["title", "author", "genre", "price", "quantity"], books)
         print("Sample data inserted into 'Books' table successfully.")
-
     except Exception as e:
         print(f"Error inserting sample data into Books table: {e}")
 
