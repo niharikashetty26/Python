@@ -1,0 +1,13 @@
+<!-- myapp/templates/myapp/book_confirm_delete.html -->
+{% extends "myapp/base_generic.html" %}
+
+{% block title %}Delete Book{% endblock %}
+
+{% block content %}
+    <h2>Are you sure you want to delete "{{ book.title }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'book_detail' book.pk %}">Cancel</a>
+    </form>
+{% endblock %}

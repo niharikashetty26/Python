@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Books</h1>
-    <a href="{% url 'add_book' %}">Add a new book</a>
-    <ul>
-        {% for book in books %}
-            <li>
-                {{ book.title }} by {{ book.author }}
-                <a href="{% url 'edit_book' book.pk %}">Edit</a>
-                <a href="{% url 'delete_book' book.pk %}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+<!-- myapp/templates/myapp/home.html -->
+{% extends "myapp/base_generic.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h2>Welcome to the Bookstore</h2>
+    <a href="{% url 'book_list' %}">View all books</a>
+{% endblock %}

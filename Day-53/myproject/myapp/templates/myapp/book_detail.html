@@ -1,0 +1,13 @@
+<!-- myapp/templates/myapp/book_detail.html -->
+{% extends "myapp/base_generic.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ book.title }}</h2>
+    <p>Author: {{ book.author }}</p>
+    <p>Published Date: {{ book.published_date }}</p>
+    <a href="{% url 'book_update' book.pk %}">Edit</a>
+    <a href="{% url 'book_delete' book.pk %}">Delete</a>
+    <a href="{% url 'book_list' %}">Back to list</a>
+{% endblock %}

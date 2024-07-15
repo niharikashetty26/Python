@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add/Edit Book</title>
-</head>
-<body>
-    <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Book</h1>
-    <form method="post" enctype="multipart/form-data">
+<!-- myapp/templates/myapp/book_form.html -->
+{% extends "myapp/base_generic.html" %}
+
+{% block title %}{{ form.instance.pk|yesno:"Update,Create" }} Book{% endblock %}
+
+{% block content %}
+    <h2>{{ form.instance.pk|yesno:"Update,Create" }} Book</h2>
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">{% if form.instance.pk %}Update{% else %}Add{% endif %}</button>
+        <button type="submit">Save</button>
     </form>
-</body>
-</html>
+    <a href="{% url 'book_list' %}">Cancel</a>
+{% endblock %}

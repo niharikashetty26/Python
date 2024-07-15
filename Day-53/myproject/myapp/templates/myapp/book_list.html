@@ -1,0 +1,14 @@
+<!-- myapp/templates/myapp/book_list.html -->
+{% extends "myapp/base_generic.html" %}
+
+{% block title %}Book List{% endblock %}
+
+{% block content %}
+    <h2>Book List</h2>
+    <ul>
+        {% for book in books %}
+            <li><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a> by {{ book.author }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'book_create' %}">Add a new book</a>
+{% endblock %}
