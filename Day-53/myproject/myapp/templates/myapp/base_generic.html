@@ -1,19 +1,29 @@
-<!-- myapp/templates/myapp/base_generic.html -->
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}Bookstore{% endblock %}</title>
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/style.css' %}">
+    {% block extra_head %}
+    {% endblock %}
 </head>
 <body>
     <header>
-        <h1>Bookstore</h1>
+        <h1>Welcome to My Bookstore</h1>
         <nav>
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'book_list' %}">Books</a>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'book_list' %}">Books</a></li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
         </nav>
     </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>
