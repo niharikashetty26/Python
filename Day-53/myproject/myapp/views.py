@@ -49,6 +49,9 @@ from .models import Book
 from .forms import BookForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import activate
+from django.http import HttpResponse
+
 
 class CustomLoginView(LoginView):
     template_name = 'myapp/login.html'
@@ -99,3 +102,7 @@ class BookDeleteView(DeleteView):
     model = Book
     template_name = 'myapp/book_confirm_delete.html'
     success_url = reverse_lazy('book_list')
+
+def test_view(request):
+    activate('es')  # Switch to Spanish
+    return HttpResponse("Prueba de traducción")
